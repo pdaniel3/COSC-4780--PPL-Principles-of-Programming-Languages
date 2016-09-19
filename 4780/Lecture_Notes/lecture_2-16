@@ -1,0 +1,113 @@
+fac k = if k <= 1 then 1 wlse k*(fac(k-1))
+
+Note that this is the same as
+
+fac = \k.if k<= 1 then 1 else k*(fac(k-1))
+
+abstract fac out of the right hand side
+
+fac = (\f.\k.if k<=1 then 1 else k*(f(k-1)) fac
+fac = g fac
+
+so fac is fixed point for g
+
+g fac = fac (star)
+
+we need to "solve" for fac ie
+we need to find a term that
+satisfies the equation for (star)
+
+We know that yg = g (yg)
+
+so yg = fac
+
+thus
+
+fac = (\f.(\x.f(xx))(\x.f(xx))g
+
+(yg)3 ~b~> 
+
+i=3*2*(if 1<=1 then 1 else (1*(yg)0)) -p-> 3*2*1
+
+
+Typing Syntax for \-calculus
+
+_/\_ ::= x | MN | \x.M
+
+x E Var
+
+M N E _/\_
+
+The language of types
+
+T ::= x | T1 -> T2
+
+a E TVar, type variable
+
+T1, T2 E T
+
+function type associates to the right
+
+T1 -> T2 -> T3
+
+= T1 -> (T2 _> T3)
+
+We would like to be able to clainn
+
+M:T (has type)
+
+In logic (and semantics) there are
+2 traditions
+
+Proof Theroy: syntactiv method for 
+valdity. |- M:T
+
+Model Therory: semantic method for verifying validity
+
+In propositional logic
+
+Write F(|) to mean (|) is 
+true for all assignments
+
+(Var -> B)
+
+Write |-prop-(|) to mean (|)
+is provabel to the proof
+system prop.
+
+A proof system is sound if
+
+|-(|)  => |=(|)
+
+A proof system is complet if
+
+|=(|) => |-(|)
+
+So we want to be able to write 
+
+|- M:T
+
+To carry doing "things we already know"
+|- |? |> M:T To mean -
+
+we can prove M:T
+
+|? |> M:T is a sequent
+
+|? is a context and is a list
+of the form x1:T1,...,Xn:Tn
+ie x, has type T1, ..., xn has type Tn
+
+Type Rules
+
+
+________________Var
+|?1, x:T, |?2 |>x:T
+
+|? |> \x.M:T1->T2
+
+________________Var
+x:a, |- x:a
+________________Abs
+a -> a
+ 

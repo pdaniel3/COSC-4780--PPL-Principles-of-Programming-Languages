@@ -1,0 +1,126 @@
+[[L:=E : comm]](s) = update([[L : intloc]],[[E : intexp]](s),s) 
+
+[[C1 ;C2 : comm]](s) = [[C2 : comm]]([[C1 : comm]](s)) 
+
+[[if E then C1 else C2 ? : comm]](s) = if([[E : boolexp]](s),[[C1 : comm]](s),[[C2 : comm]](s)) 
+
+[[while E do C od : comm]](s) = w(s) 
+  where 
+  w(s) = if([[E : boolexp]](s),w([[C : comm]](s)),s) 
+
+[[skip : comm]](s) = s
+
+
+[[while E do C od : comm]](s) = w(s) 
+  where 
+  w(s) = if([[E : boolexp]](s),w([[C : comm]](s)),s)
+   |     {                }          
+   v      \              /
+recursive  F            T
+           |            |
+	   v            v
+	 done          Execute C,
+	               update, call 
+
+
+
+
+
+         ___E____     ______C_______               _s_
+        |        |   |              |             |   |
+[[while @loc1 = 0 do loc1 = @loc2 + 1 od : comm]] <0,0>
+
+= W<0,0>
+
+= if([[@loc1 = 0:boolexp]]<0,0>, w([[loc1 = @loc2 + 1 :comm]]),<0,0>)
+
+= w([[loc1 = @loc2 + 1 :comm]]).<0,0>) = if([[@loc1 = 0:boolexp]]<1,0>, w([[loc1 = @loc2 + 1 :comm]]),<1,0>),<1,0>)        
+        <1,0>                                false
+	  S
+
+
+w0(s) = _|_  [[C:comm]]:store --> store U             {_|_}
+                               (proper store)   (infinite loop)
+			       
+w1(s) = if([[E:boolexp]](s), w0([[C:comm]])(s)),s)
+
+w2(s) = if([[E:boolexp]](s), w1([[C:comm]])(s)),s)
+.
+.
+.
+w(K+1)(s) = if([[E:boolexp]](s), wk([[C:comm]])(s)),s)
+  count down
+
+
+-Note that if w(s) = s' then there exists a K S.T. wk(s) = s'
+
+What does it mean to say w(s) = s'?
+
+It means there is some k that
+after k iterations that the while loop halts
+wk(s)=s'
+
+if wk(s) = s' then 
+ for every j>= k wj(s)=s'
+
+Least Element Principle
+Every non-empty subset of N
+has a minimum element
+
+
+Theorem
+For every s:store, for every c:comm, [[while 0 = 0 do C od:comm]](s) = _|_
+
+Proof, choose an arbitrary store s, command c
+  Proof by contradiction
+  Assume w(s) = s' for some proper store s'
+  There exists some k s.t. wk(s)=s'
+  By the least element principle assume that
+  K is the least such number
+  this means wk(s)=w1(s')=s'
+
+  w1(s') if([[E:boolexp]](s'), w0([[C:comm]](s').s')
+            0=0
+	    true
+
+= w0([[C:comm]](s'))
+= _|_ by definitijon of w0
+this is a contradiction
+
+
+Static Analysis of While loops'
+
+while E do C od
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  MUSC 1000 (3rd)
+  WMST 1080 (CH, D)
+  ANTH 1200 (Cs, G)
+  
+  4 ENGL 4010
+  4 EE 2390 (Fall)
+  (Scientific  computing?) math ....
+
+  cosc 1030
+  cosc 4210
+  
+

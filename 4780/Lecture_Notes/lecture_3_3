@@ -1,0 +1,110 @@
+Core Language
+
+-Syntax (form)
+
+-Typing Rules (Sensible)
+
+-Semantics (meaning)
+   3 kinds of Semantics
+     1) Hoare semantics
+          -axiomatic
+     2) Denotational Semantics
+          Syntax tree -> mathematical domain
+     3) Operational Semantics
+          Syntax tree -evaluates-> Some (?operational) model
+ _________
+|___Apps__|
+|____Os___|
+|_High_Lvl|
+|__Ass_L__|
+|___RTL___|
+|__gates__|
+|_silicon_|
+
+constants   -> C::= L:= A | C1;C2 | if E then C1 else C2 fi | while E do c od | Skip
+Expositions -> E::= N | @L | E1+E2 | not E | E1 = E2
+               L::= fori i > 0             
+	       N::= x where x (element of) Z/ 
+	       for1,:=2,while not(@not,=0) do for2:=@toc,+@loc,;+@loc,:=@loc-1 od;
+
+type expression = N of int
+                | Deref of location
+		| Plus of expression * expression
+		| Not of expression
+		| Eq of expression * expression
+;;
+
+
+for all x::int. P(Ni) ^
+
+for all l::location. P(Defref l) ^ 
+
+for all e1,e2::expression. P(e1) ^ P(e2) => P(Plus(e1,e2)) ^
+
+for all e::expression. P(e) => P(not e)
+
+for all e1,e2::expression. P(e1) ^ P(e2) => P(Eq(e1,e2))
+
+=> for all e::expression. P(e)
+
+
+
+
+while(0=0) do skip od;loc1:=@loc2
+        ; 
+        /\
+       /  \ 
+      /    \
+ while      :=
+   / \     /  \
+  = skip  loc1 @ 
+ / \          /   
+0   0     loc2
+
+
+E:boolexp     C:com
+___________________
+While E do C od:comm
+
+_________________
+skip:comm
+
+
+E1:Texp E2:Texp  t E (int,bool)
+________________
+e1 = e2:boolexp
+
+N:int
+______________
+N:intexp
+
+
+___________ i>0
+loci:intloc
+
+
+l:intloc
+__________
+@L:intexp
+
+
+L:intloc  E:intexp
+__________________
+L:=E :mcomm
+
+
+
+type types =
+  Intexp | Boolexp | comm | Int | Int loc 
+
+
+let exp = expression
+type deriv = 
+  IntRule exp * types
+| IntLoc Tule exp * types
+| EqBoolExp (exp * exp * type) * deriv * deriv
+| WhileComm (exp * comm * type) * Deriv * Deriv
+| SemmiComm (comm * comm * types) * deriv * deriv
+| AssignComm (loaction, exp, type) * deriv * deriv
+
+SemiComm(while...,

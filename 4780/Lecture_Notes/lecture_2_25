@@ -1,0 +1,105 @@
+Formal Semantics
+
+Grammer <--> Semantics
+[Syntax]     [Meaning]
+
+
+Hieracrhy of languages - Chompsky
+
+   __________________________________________
+  |            (Universal)  -----------------|---> Turing Machine
+  |    ___________________________________   |
+  |   |        (Context Sensitive) -------|--|---> Linear Bounded Automata
+  |   |   _____________________________   |  |
+  |   |  |     (Context Free) ---------|--|--|---> Push Down Automata          
+  |   |  |   _______________________   |  |  |               
+  |   |  |  |  (Regular Languages)  |--|--|--|---> Regular Expressions
+  |   |  |  |_______________________|  |  |  |     Finite State Machines
+  |   |  |_____________________________|  |  |
+  |   |___________________________________|  |
+  |__________________________________________|
+
+
+   __________________________ 
+  |         Sigma*  ---------|---> Set of all finite           
+  |  _____________________   |     strings over the alphabet Sigma
+  | |(Regular Languages)  |--|---> Sigma* {e,a,...,aa,ab}
+  | |_____________________|  |    
+  |__________________________|
+
+L <= Sigma* is a language
+
+Context free languages are
+compositional. The meaning
+of a phrase depends on
+the meaning of its parts
+
+Tony Hoare - British Computer Scientist
+             Developed Axiomatic Semantics
+	     (4100)
+
+{x > 5}
+  x := x+1
+{x > 5 + 1}
+
+Denotation Semantics -
+  Syntax -> Denotation (mathematical model)
+
+Map syntax (or the structure of a 
+typing derivation) onto some mathematical
+domain.
+
+
+Ex: Prop ::= True | False | P ^ Q | P V Q | TP | x
+
+True and false are constants
+
+P,Q E Prop - Previously constructed
+
+x E Var
+
+  ^   <--> "x ^ not True"
+ / \       "x ^ T" <-- not in the L
+x  not
+     \
+     True
+
+
+Dana Scotee - "Scott brackets"  Domain - {true, false}
+[|True|]a = true                Operators = {and, or, not}
+[|False|]a = false
+[|P^Q|]a = [|P|]a and [|Q|]a    true and true = true     
+[|PVQ|]a = [|P|]a or [|Q|]a     true and false = false
+[|not P|]a = not [|P|]a         not true = false
+[|x|]a = a x                    not false = true
+
+a: assignment - ie a functionto true or false
+
+a: Var -> g{true, false}
+mapping vaiables 
+
+
+a0 = \x.false
+a(x) = false
+  _ 
+[| |(x V True |] a0 =
+
+= not [|x V True |]
+= not ([|x|]a0 V [|True|]a0)
+= not (a0(x) or true)
+= not (false or true)
+= not true
+= false
+
+
+[|P|]a ~~ meaning_of_prop P a =
+            match p with
+	      True -> true
+	    | False -> false 
+
+
+Operational Semnantics - the program is translated
+into a form (JVM code) executable on some
+computational platform (The JVM)
+
+

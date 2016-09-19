@@ -1,0 +1,23 @@
+(A.B).C
+
+typed assignment T = {A:{B:{C:intloc,...}
+
+evironment e = {(A={B={C=loc2...}...}
+(nested environment)
+
+names -> X::= I | X.I
+
+alternate -> X'::= I | I.X
+
+
+{
+
+class Point = record {Var X:newint, Var Y:newint} end;
+Var p1:Point;
+Var p2:Point;
+
+.
+.
+.
+
+if p1.X = p2.y then ...

@@ -1,0 +1,65 @@
+_/\_ ::= x | MN | \x.M
+(cap \)    (app)(abstaction)
+
+x e Var x is a variable
+M1N e _/\_ M and N are \terms previously constructed
+
+\x.M - represents a function
+MN - represents the application of M to N
+
+\x.\y.yx != \x.y.xy
+
+\x\x.yx =? \y.\x.xy
+
+  L
+ / \
+x   L
+   / \
+  y  ap
+    /  \
+   x    y
+
+   (arrow bottom x to y) 
+   (arrow bottom y to x)
+
+  L
+ / \
+Y   L
+   / \
+  X  ap
+    /  \
+   x    y
+
+   (x to x, y to y)
+
+\x.x identity function
+
+
+Free and Bound Variables
+fv(x) = {x}  fv: term -> var Sat
+fv(MN) = fv(M) U fv(n)
+fv(\x.M) = fv(M) - {x}
+
+bv(x) = {}
+bv(MN) = bv(M) U bv(N)
+bv(\x.M) = bv(M) U (fr(m) ^ {x})
+
+We will restrict ourselves to a pair 
+(x,t) : Var _/\_ term 
+
+subst(x,t) x = t
+subst(x,t) y = y
+subst(x,t) (t1,t2) = (subst(x,t)t1)(subst(x,t) t2))
+subst(x,t)) (\x,.t1) = \x.t1
+      |______|
+      same var
+subst(x, t) (\y.t1) = 
+  if y !e fv(t) then \y(subst(x,t)t1)
+  else
+    \z.subst(x1,t)(subst(y,z) t1)
+
+
+\x.x
+
+ocaml fun x -> x
+Haskl \x -> x

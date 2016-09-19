@@ -1,0 +1,44 @@
+types
+(-) ::= Texp | intloc | comm | pi dec
+T ::= int | bool
+pi ::= {i:(-)i} i E I
+
+Store_|_ - Store U {_|_} <- program loops forever
+
+[|Texp|] = Store -> [|T|]
+[|comm|] = Environment -> Store -> Store_|_
+[|int|] = Int   [|{i:(-)}iEI|] = {i:[|(-)i|]} i E Int  
+[|intloc|] = Location
+[|piloc|] = Store -> [|pi|]
+[|bool|] = Bool = {T,F}
+
+Sometimes
+if pi |- U:(-) and 
+  e E Envpi then
+  [|U:(-)|]e = [|(-)|] 
+
+The meaning of a wll-typed Phrase
+U of type (-) denotes a value of type
+[|(-)|]
+
+I < Identifier is a finite set
+
+fun A = @loc1 + 1                    \  D
+fun B = (A=2) {A:intexp, B: boolexp} /
+
+in
+
+loc1:=A;                  \
+if B then loci := A+1      \   C
+else                       /
+  skip                    /
+
+Environment
+e1 = {A = f1, B = g}
+where f s' = [|(|) |- @loc1+1:intexp|} (|) s'
+      g s' = [|{A:intexp}|-A=2:boolxp|]{A=f}s'
+
+[||-D in C:comm|] (|) s = [|pi1 |- C:comm|] e1 s
+  where e1 = [|(|) |- D:pi1 dec|] (|) s
+
+[|pi|-fun I = E:{I:Texp}dec|] e s = 

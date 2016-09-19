@@ -1,0 +1,64 @@
+Var x -> <{(x=loci)}, s'>
+
+x is an environment (meaning)
+s' is a store extended to include the location of loci
+loci is a new location
+
+D E Declaration
+D::= ... | Var I:T | class I = I
+T::= newint | I | record D emd
+X::= I | X.I
+
+T E Type Structure
+
+newint = allocate
+allocate <i1,...,ij> =
+  (loc(i+j?)<i1,...,ij,0>)
+
+  loc(i+j) = new location
+  ij = new store
+
+Var A:newint
+
+class R = record var X:newint, varyY:newint, var C:newint
+proc P = c:=@A + 1 end
+
+Var A:R
+Var B:R
+
+A.x + A.y
+call A.P
+;
+
+types (-)::= T | Texp | comm | S | S class | pi dec
+S::= intloc | pi
+pi::= {i:(-)i} i E I where I <= identifier
+
+t = int | bool <- he crossed this out
+
+type types = 
+    Int
+  | Bool
+  | IntExp
+  | Boolexp
+  | comm
+  | Type of delta
+  | Class of delta
+  | Dec of type_assignment
+ and delta = 
+     Intloc
+   | Pi of type_assignment
+ and type_assignment = TA of (string * types) list
+
+
+|B = {True, False}
+
+ _name____|_syntax_class_|_________________________
+integers  | (-) T        | [[int]]:Z/
+booleans  | (-) T        | [[bool]]:|B
+intexpress| (-) Texp     | [[intexp]]:Store->Z/
+boolexpres| (-) Texp     | [[boolexp]]:Store->|B
+comm      | (-)          | [[comm]]:Store->Store
+locations | (-), S       | [[intloc]]:Location
+type assig| (-)', S, pi  | [[{i,(-)i}i E I]] = {i:[[(-)i]]}
+class     | (-)          | [[Sclass]]:Store->([[S]] x store)

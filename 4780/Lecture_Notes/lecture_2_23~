@@ -1,0 +1,19 @@
+Case Var
+  Wand(|?,x,T) =(def)=
+    if F T'.<X,T'> E |? ehen
+      {<T = T'}
+    else
+      fail
+
+Wand(|?,MN,T) = 
+  let x be fresh in
+    let c1 = Wand(|?,M,a->T) in
+      let c2 = Wand(|?,N,a) in
+        c1 U c2
+
+Wand(|?,\x.M,T) = 
+  let a, B be fresh in
+  let c = Wand(|?/x U {x:a}. M, B)
+    {T = x->B} U c
+
+|?/x -> all items where the first item is not x

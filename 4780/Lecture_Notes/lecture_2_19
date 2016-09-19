@@ -1,0 +1,192 @@
+_/\_ ::= x | M N | \x.M
+
+x E VAr, M,N E _/\_
+
+T ::= a | T1 -> T2
+
+a E Tvar, Tvar = {a, B, ...}
+
+M:T <- M has type T
+
+Good: Type inference
+  infer: _/\_ -> (T | error)
+  ^program term    ^ type if it has one,
+                     else error
+
+First - present a verification system
+        for checking that a claim M:T is 
+        true or false
+
+Recall - a context (|?, |?1, ...) is a 
+         list of type (Var X T). 
+         |?=[x1:T1, ..., Xn:Tn]
+         n >= 0 if n = 0 then |? = []
+
+3 proof rules
+We call a (triple) of the form
+
+(|?,M,T) a seauent. We write:
+
+|? |- M:T
+
+Assuming the variable type
+pairs in |?, we can show
+m has type T
+
+Proof-rules are schematic (they are templates)
+
+If x:T E |? then we write
+
+|?1,x:T,|?2
+
+(note |?1 or |?2 can be []
+      _
+     |  |? = y:a
+     |  |?1 |-> [] 
+s =  |  |?2 |-> []   <-This substitution, applied to the form
+     |  x   |-> y    s(|?1,X:T,|?2) = y:a    
+     |_ T   |-> a
+
+Rules
+___________
+__________________________Var
+|?1,X:T,|?2,|- X:T
+
+
+
+
+ ()  /\
+    /_t\
+
+
+
+
+|? |- M:T' -> T |? |- N:T' 
+__________________________Ap
+|? |- MN:T
+
+
+     ap
+    /  \
+   /    \
+  /\    /\
+ /M_\  /_N\
+
+
+|?/X,x:T |- M:T2
+_________________________Abs
+|? |- \x.M:T1 -> T2
+
+
+   l           ->
+  / \     :   /  \
+ () /\       /\  /\
+   /_M\     /T1\/T2\
+
+
+
+|?/x = filter(fun(y1-)->x!=y)|?
+
+(a->B)->a->B
+
+|?/x is the 
+context |? with
+any pair whose 1st
+element is x-removed
+
+
+  l
+ / \
+f   l
+   / \
+  x  ap
+    /  \
+   f   ap
+      /  \
+     f    x
+
+
+      |- \f.\x.f(f x) : (a->a)->a->a
+
+  ^|?=[]
+
+
+s = {
+  |? |-> []
+  x  |-> f
+  M  |-> \x.f (f x)
+  T1 |-> (a->a)
+  T1 |-> a->a }
+
+
+
+f:a->a,x:a|-f:a->a  f:a->a,x:a|-x:A
+____(var)________________(var)_____Ap
+
+
+f:a->a,x:a|-f:a->a  f:a->a,x:A|-fx:A
+
+_______(var)_______________________Ap
+fa->a,x:a |- f(f x):a
+
+___________________________________Abs
+f:a->a |-\x.f(f x) : a-> a
+___________________________________Abs
+
+
+|?=[] |- \f.\x.f(f x):(a->a)->(a->a)
+       |_x_||___m___| |_t1_|  |_T2_|
+
+
+IF there is a substitution 
+s, that applied to a conclusion
+of a rule is a sequent 
+being proved- then we say s
+is a match for the sequent and
+the rule 
+
+
+
+
+_____________Var
+x:a|-x:a
+
+not a proff
+becasue the
+var rule
+does not
+match
+
+x:A|-x:B
+_____________Abs
+
+|-\x.x:a->B
+
+       _________________________________________
+       |                                       |
+_______|__________Var                              |? |-> []
+                                                   x  |-> x
+x:a->B,y:a|-x:a->B  x:a->B,y:a|-y:A                T  |-> a->B
+____(var)_______________(var)_______Ap             |?2|-> [y:a]
+                         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

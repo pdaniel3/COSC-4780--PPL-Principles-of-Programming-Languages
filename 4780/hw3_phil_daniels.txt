@@ -1,0 +1,48 @@
+Phil Daniels
+Homework 3
+
+-Problem 0.1.
+0.) (\y.y)z
+    z[y:=y]
+    z
+
+1.) w ((\y.y)z)
+    w (z[y:=y])
+    w z
+
+2.) ((\y.y)z)w
+    (z[y:=y])w
+    z w
+
+3.) (\x.\y.(x y))z
+    (\x.(y[x:=y]))z
+    (\x.x)z
+    z[x:=x]
+    z
+
+4.) (\x.\y.(y x)))y
+    (\x.(y[y:=x]))y
+    (\x.y) y
+    y[x:=y]
+    x
+
+5.) (\x.((\y.(y x))z))
+    (\x.((x[yfixe=y]))z))
+    (\x.(x)z)
+    \x.x z
+    z[x:=x]
+    z
+    
+-Problem 0.2.
+Z def = \f.(\x.f(\y.xxy))(\x.f(\y.xxy))
+
+Z M = (because \y.NNy = NN, \y.xxy = xx)
+      \f.(\x.f(\y.xxy))(\x.f(\y.xxy))
+      \f.(\x.f(xx))(\x.f(xx))
+      (so now we have essentially the Y combinator)
+      (\f.(\x.f(xx))(\x.f(xx)))M
+      (\x.M(xx))(\x.M(xx))
+      M((\x.M(xx))(\x.M(xx)))
+      M((\f.(\x.f(xx))(\x.f(xx)))M)
+      M(Z M)
+

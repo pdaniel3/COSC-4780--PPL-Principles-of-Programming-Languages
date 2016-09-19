@@ -1,0 +1,110 @@
+Syntax ::= D in C
+D ::  fun I = E | D1;D2 | D1, D2
+E::= @L | E1 + E2 | E1 = E2 | NOT E | I <- (way of invoking a function)
+
+                    __
+  fun A = @loc1 + 1   |  D  
+  fun B = A + A     __|
+                   
+in 
+                __
+  loc2 := a       |   C
+  loc3 := B + A __|
+
+fun A = 1;
+fun B = 2
+
+
+
+
+pi|-D1 : pi1 dec pi U pi1|-D2 : pi2 dec
+___________________________________
+pi |- D1,D2 : {pi1 U pi2} dec
+              |______________|
+
+	      a type - a declaration
+	      type- parameterized
+	      by the type assignment
+	      (in this case pi forall pi2
+
+
+
+pi is a ytype assignment
+- a list of of identification x types
+
+pi1 U pi2 = { pi1 U pi2 if the first
+            {           element of pi1
+	    {		and pi2 are
+	    {           disjoint
+	    {
+	    { undefined otherwise
+
+
+
+pi|-D1 : pi1 dec    pi|-d2 : pi2 dec
+___________________________________
+pi |- D1,D2 : {pi1 U pi2} dec
+
+
+pi = {}
+pi1 = {A:intexp}
+pi2 = {B:intexp}
+
+{A:intexp,B:intexp}
+
+pi|- E Texp
+______________________________
+pi|-fun I = E : {I : Texp} dec
+
+
+
+{}|-D:pi dec
+_______________
+|-D in C : comm
+
+ 
+
+
+pi1 U pi2 = {pi1 u pi2 if { I | <I1, (|)> E pi2 ^
+                         {I | <I2, (|)> E pi2} = (phi or theta?)
+             
+	     undefined otherwise
+
+
+{A:intexp} U {A:intexp, B:intexp} = undefined
+{A:intexp},B:intexp} <- (intexp t1?)
+
+Typing ...done
+
+Semantics
+A type assignment (pi) is a
+data structure to "remember"
+the type of an identifier
+
+An environment (e) is a 
+data structure to "remember"
+the meaning of an identifier
+
+
+
+
+
+
+
+[|C:comm]|] Store -> store i
+(\C/[|C:comm|]): Comm -> store -> Storei (i?)
+
+                    __
+  fun A = @loc1 + 1   |  D  
+  fun B = A = @loc2 __|
+                   
+in 
+              __
+  if B then     |   C
+    loc1 := A+A |
+  else          |
+    skip      __|
+                                               (empty environment)
+[| |- D in C:comm|]s = let e = [|phi |-pi dec|] phi s
+                           {|pi |- C:comm|] e0 s
+
